@@ -22,7 +22,7 @@ const Footer = () => {
             Github Repo
           </a>
           <a
-            href="https://www.youtube.com/watch?v=your-video-id"
+            href="https://youtu.be/mZiYfmovLNI"
             target="_blank"
             rel="noopener noreferrer"
             className="hover:text-gray-400 transition duration-300"

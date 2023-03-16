@@ -1,7 +1,7 @@
 # OnChain Notes
 OnChain notes is a web3 notes web app using which you can store your notes directly on Polygon Blockchain.
 
-Live Link:- 
+Live Link:- https://onchain-notes.vercel.app/
 
 # Video Demo
 <video src="public/onchain demo.mp4" controls="controls" style="max-width: 730px;"> </video>
