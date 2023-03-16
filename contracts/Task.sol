@@ -8,6 +8,7 @@ contract TaskContract {
 
     struct Task {
         uint id;
+        string taskTitle;
         string taskText;
         bool isDeleted;
     }
@@ -20,9 +21,9 @@ contract TaskContract {
 
     event DeleteTask(uint taskId,bool isDeleted);
 
-    function addTask(string memory taskText, bool isDeleted) external {
+    function addTask(string memory taskText,string memory taskTitle, bool isDeleted) external {
         uint taskId = tasks.length;
-        tasks.push(Task(taskId, taskText, isDeleted));
+        tasks.push(Task(taskId,taskTitle, taskText, isDeleted));
         taskToOwner[taskId] = msg.sender;
         emit AddTask(msg.sender,taskId);
     }
