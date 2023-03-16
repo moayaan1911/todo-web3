@@ -4,7 +4,7 @@ OnChain notes is a web3 notes web app using which you can store your notes direc
 Live Link:- 
 
 # Video Demo
-<video src="public/.mp4" controls="controls" style="max-width: 730px;"> </video>
+<video src="public/onchain demo.mp4" controls="controls" style="max-width: 730px;"> </video>
 
 # Screenshots
 ![Alt text](public/pic5.png "5")

@@ -28,15 +28,15 @@ const Index = () => {
   const [title, setTitle] = React.useState("");
   const [content, setContent] = React.useState("");
   const [tasks, setTasks] = React.useState([]);
+  const [loading, setLoading] = React.useState(false);
   const handleAdd = async () => {
-    await contract.addTask(content, title, false);
+    const tx = await contract.addTask(content, title, false);
+    setLoading(true);
+    await tx.wait();
+    setLoading(false);
     await setContent("");
     await setTitle("");
-    alert("Add in progres. Est Time:-12 seconds");
-    setTimeout(() => {
-      console.log("Added");
-      fetchData();
-    }, 15000);
+    fetchData();
   };
 
   const fetchData = async () => {
@@ -55,12 +55,11 @@ const Index = () => {
   };
 
   const finishTask = (key) => async () => {
-    await contract.deleteTask(key);
-    alert("Delete in progres. Est Time:-12 seconds");
-    setTimeout(() => {
-      console.log("Deleted");
-      fetchData();
-    }, 15000);
+    const tx = await contract.deleteTask(key);
+    setLoading(true);
+    await tx.wait();
+    setLoading(false);
+    fetchData();
   };
 
   useEffect(() => {
@@ -74,6 +73,9 @@ const Index = () => {
     window.ethereum.on("disconnect", function (accounts) {
       window.location.reload();
       alert("Please connect to your wallet");
+    });
+    window.ethereum.on("message", function (accounts) {
+      window.location.reload();
     });
   });
   return (
@@ -146,7 +148,22 @@ const Index = () => {
           </span>
         </a>
       </div>
-      {connected && dataExists && (
+      {loading && (
+        <div class="flex items-center justify-center flex-col">
+        <h1 className="md:text-4xl md:font-bold md:m-4 text-sm m-2 font-semibold items-center text-center">
+          Transacting on Blockchain, please wait for confirmation
+        </h1>
+          <div
+            class="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-current border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]"
+            role="status"
+          >
+            <span class="!absolute !-m-px !h-px !w-px !overflow-hidden !whitespace-nowrap !border-0 !p-0 ![clip:rect(0,0,0,0)]">
+              Loading...
+            </span>
+          </div>
+        </div>
+      )}
+      {connected && dataExists && !loading && (
         <div>
           <h1 className="md:text-4xl md:font-bold md:m-4 text-xl m-2 font-semibold items-center text-center">
             My Notes 📝
@@ -210,9 +227,8 @@ const Index = () => {
           </h2>
         </div>
       )}
-   
-      <Footer/>
-    
+
+      <Footer />
     </div>
   );
 };
