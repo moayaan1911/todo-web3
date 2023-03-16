@@ -115,3 +115,5 @@ export const abi= [
     "type": "function"
   }
 ]
+
+export default function Home() {}
